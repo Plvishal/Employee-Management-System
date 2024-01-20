@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import './style.css';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 function Login() {
+  const navigate = useNavigate();
+  axios.defaults.withCredentials = true;
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -11,7 +14,9 @@ function Login() {
 
     axios
       .post('http://localhost:3000/auth/adminlogin', values)
-      .then((result) => console.log(result))
+      .then((result) => {
+        navigate('/dashboard');
+      })
       .catch((err) => console.log(err));
   };
   return (
