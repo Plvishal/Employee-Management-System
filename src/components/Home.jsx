@@ -17,7 +17,7 @@ function Home() {
     axios
       .get('http://localhost:3000/auth/employeeCount')
       .then((res) => {
-        setEmployeeCount(res.data[0].employee);
+        setEmployeeCount(res.data.Result[0].employee);
       })
       .catch((err) => console.log(err));
 
@@ -38,8 +38,9 @@ function Home() {
               <h4>Admin</h4>
             </div>
             <hr />
-            <div className="">
-              <h5>Total: {adminCount}</h5>
+            <div className="d-flex justify-content-between">
+              <h5>Total:</h5>
+              <h5> {adminCount}</h5>
             </div>
           </div>
           <div className="px-3 pt-2 pb-3 border shadow-sm w-25">
@@ -47,8 +48,9 @@ function Home() {
               <h4>Employee</h4>
             </div>
             <hr />
-            <div className="">
-              <h5>Total: {employeeCount}</h5>
+            <div className="d-flex justify-content-between">
+              <h5>Total:</h5>
+              <h5> {employeeCount}</h5>
             </div>
           </div>
           <div className="px-3 pt-2 pb-3 border shadow-sm w-25">

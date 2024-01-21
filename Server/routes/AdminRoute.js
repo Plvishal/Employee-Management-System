@@ -136,4 +136,12 @@ router.get('/adminCount', (req, res) => {
     return res.json({ Status: true, Result: result });
   });
 });
+router.get('/employeeCount', (req, res) => {
+  const sql = 'select count(id)  as employee from employee';
+  con.query(sql, (err, result) => {
+    if (err) return res.json({ Status: false, Error: 'Query Error' });
+
+    return res.json({ Status: true, Result: result });
+  });
+});
 export { router as adminRouter };
