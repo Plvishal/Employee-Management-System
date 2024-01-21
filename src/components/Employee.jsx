@@ -18,6 +18,17 @@ function Employee() {
         console.log(err.message);
       });
   }, []);
+  const handleDelete = (id) => {
+    axios
+      .delete('http://localhost:3000/auth/delete_employee/' + id)
+      .then((result) => {
+        if (result.data.Status) {
+          window.location.reload();
+        } else {
+          alert(result.data.Error);
+        }
+      });
+  };
   return (
     <>
       <div className="px-5 mt-3">
@@ -60,7 +71,12 @@ function Employee() {
                     >
                       Edit
                     </Link>
-                    <button className="btn btn-warning btn-sm">Delete</button>
+                    <button
+                      className="btn btn-warning btn-sm"
+                      onClick={() => handleDelete(e.id)}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}
