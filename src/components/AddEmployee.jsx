@@ -30,8 +30,16 @@ function AddEmployee() {
   }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append('name', employee.name);
+    formData.append('email', employee.email);
+    formData.append('password', employee.password);
+    formData.append('address', employee.address);
+    formData.append('salary', employee.salary);
+    formData.append('image', employee.image);
+    formData.append('categoryId', employee.categoryId);
     axios
-      .post('http://localhost:3000/auth/add_employee', employee)
+      .post('http://localhost:3000/auth/add_employee', formData)
       .then((result) => console.log(result))
       .catch((err) => {
         console.log(err.message);

@@ -2,6 +2,8 @@ import express from 'express';
 import con from '../config/db.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import multer from 'multer';
+import path from 'path';
 
 const router = express.Router();
 router.post('/adminlogin', (req, res) => {
@@ -42,7 +44,24 @@ router.get('/category', (req, res) => {
   });
 });
 
-router.post('/add_employee', (req, res) => {
+// Image Upload
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/images');
+  },
+  filename: (req, file, cb) => {
+    cb(
+      null,
+      file.fieldname + '_' + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+
+const upload = multer({
+  storage: storage,
+});
+
+router.post('/add_employee', upload.single('image'), (req, res) => {
   const sql =
     'INSERT INTO employee (`email`,`password`,`salary`,`address`,`name`,`image`,`categoryId`) VALUES (?)';
   bcrypt.hash(req.body.password, 10, (err, hashPassword) => {
@@ -53,11 +72,10 @@ router.post('/add_employee', (req, res) => {
       req.body.salary,
       req.body.address,
       req.body.name,
-      req.body.image,
+      req.file.filename,
       req.body.categoryId,
     ];
-    console.log(values);
-    console.log(sql);
+
     con.query(sql, [values], (err, result) => {
       if (err) return res.json({ Status: false, Error: 'Query Error' });
       return res.json({ Status: true, Result: result });
