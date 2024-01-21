@@ -24,5 +24,19 @@ router.post('/adminlogin', (req, res) => {
     }
   });
 });
+router.post('/add-category', (req, res) => {
+  const sql = 'INSERT INTO categories (`name`) VALUES (?)';
+  con.query(sql, [req.body.category], (err, result) => {
+    if (err) return res.json({ Status: false, Error: 'Query Error' });
+    return res.json({ Status: true });
+  });
+});
 
+router.get('/category', (req, res) => {
+  const sql = 'SELECT * FROM categories ';
+  con.query(sql, (err, result) => {
+    if (err) return res.json({ Status: false, Error: 'Query Error' });
+    return res.json({ Status: true, Result: result });
+  });
+});
 export { router as adminRouter };
