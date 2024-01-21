@@ -10,7 +10,6 @@ function Home() {
     axios
       .get('http://localhost:3000/auth/adminCount')
       .then((res) => {
-        console.log(res);
         setAdminCount(res.data.Result[0].tbladmin);
       })
       .catch((err) => console.log(err));
@@ -24,7 +23,8 @@ function Home() {
     axios
       .get('http://localhost:3000/auth/salary')
       .then((res) => {
-        setSalary(res.data[0].sumOfSalary);
+        console.log(res);
+        setSalary(res.data.Result[0].employee);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -58,8 +58,9 @@ function Home() {
               <h4>Salary</h4>
             </div>
             <hr />
-            <div className="">
-              <h5>Total: {salary}</h5>
+            <div className="d-flex justify-content-between">
+              <h5>Total:</h5>
+              <h5> &#8377;{salary}</h5>
             </div>
           </div>
         </div>
