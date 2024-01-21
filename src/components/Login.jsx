@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 function Login() {
   const navigate = useNavigate();
   axios.defaults.withCredentials = true;
+  const [error, setError] = useState(null);
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -15,7 +16,11 @@ function Login() {
     axios
       .post('http://localhost:3000/auth/adminlogin', values)
       .then((result) => {
-        navigate('/dashboard');
+        if (result.data.loginStatus) {
+          navigate('/dashboard');
+        } else {
+          setError(result.data.Error);
+        }
       })
       .catch((err) => console.log(err));
   };
@@ -24,6 +29,7 @@ function Login() {
       <div className="d-flex justify-content-center align-items-center vh-100 loginPage">
         <div className="p-3 rounded w-25 border loginForm">
           <h2>Login Form</h2>
+          <div className="text-danger">{error && error}</div>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <label htmlFor="email">Email:</label>
