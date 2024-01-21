@@ -4,7 +4,6 @@ import axios from 'axios';
 
 function Employee() {
   const [employee, setEmployee] = useState([]);
-  console.log(employee);
   useEffect(() => {
     axios
       .get('http://localhost:3000/auth/employee')
@@ -48,14 +47,20 @@ function Employee() {
                     <img
                       src={'../Server/public/images/' + e.image}
                       alt="error"
+                      className="employee_img"
                     />
                   </td>
                   <td>{e.email}</td>
                   <td>{e.address}</td>
                   <td>{e.salary}</td>
                   <td>
-                    <button>Edit</button>
-                    <button>Delete</button>
+                    <Link
+                      className="btn btn-info btn-sm me-2"
+                      to={`/dashboard/edit_employee/` + e.id}
+                    >
+                      Edit
+                    </Link>
+                    <button className="btn btn-warning btn-sm">Delete</button>
                   </td>
                 </tr>
               ))}

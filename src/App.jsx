@@ -9,6 +9,7 @@ import Category from './components/Category';
 import Profile from './components/Profile';
 import AddCategory from './components/AddCategory';
 import AddEmployee from './components/AddEmployee';
+import EditEmployee from './components/EditEmployee';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="profile" element={<Profile />}></Route>
             <Route path="add_category" element={<AddCategory />}></Route>
             <Route path="add_employee" element={<AddEmployee />}></Route>
+            <Route path="edit_employee/:id" element={<EditEmployee />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>
