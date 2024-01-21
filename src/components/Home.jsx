@@ -8,26 +8,27 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3000/adminCount')
+      .get('http://localhost:3000/auth/adminCount')
       .then((res) => {
-        setAdminCount(res.data[0].admin);
+        console.log(res);
+        setAdminCount(res.data.Result[0].tbladmin);
       })
       .catch((err) => console.log(err));
-
     axios
-      .get('http://localhost:3000/employeeCount')
+      .get('http://localhost:3000/auth/employeeCount')
       .then((res) => {
         setEmployeeCount(res.data[0].employee);
       })
       .catch((err) => console.log(err));
 
     axios
-      .get('http://localhost:3000/salary')
+      .get('http://localhost:3000/auth/salary')
       .then((res) => {
         setSalary(res.data[0].sumOfSalary);
       })
       .catch((err) => console.log(err));
   }, []);
+
   return (
     <>
       <div>

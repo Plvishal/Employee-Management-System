@@ -127,4 +127,13 @@ router.delete('/delete_employee/:id', (req, res) => {
     return res.json({ Status: true, Result: result });
   });
 });
+
+router.get('/adminCount', (req, res) => {
+  const sql = 'select count(id)  as tbladmin from tbladmin';
+  con.query(sql, (err, result) => {
+    if (err) return res.json({ Status: false, Error: 'Query Error' });
+
+    return res.json({ Status: true, Result: result });
+  });
+});
 export { router as adminRouter };
