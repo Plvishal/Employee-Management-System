@@ -152,4 +152,13 @@ router.get('/salary', (req, res) => {
     return res.json({ Status: true, Result: result });
   });
 });
+
+router.get('/adminRecords', (req, res) => {
+  const sql = 'select * from tbladmin';
+  con.query(sql, (err, result) => {
+    if (err) return res.json({ Status: false, Error: 'Query Error' });
+
+    return res.json({ Status: true, Result: result });
+  });
+});
 export { router as adminRouter };

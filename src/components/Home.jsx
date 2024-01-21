@@ -1,10 +1,12 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Home() {
   const [adminCount, setAdminCount] = useState();
   const [employeeCount, setEmployeeCount] = useState();
   const [salary, setSalary] = useState();
+  const [admins, setAdmins] = useState([]);
 
   useEffect(() => {
     axios
@@ -23,8 +25,13 @@ function Home() {
     axios
       .get('http://localhost:3000/auth/salary')
       .then((res) => {
-        console.log(res);
         setSalary(res.data.Result[0].employee);
+      })
+      .catch((err) => console.log(err));
+    axios
+      .get('http://localhost:3000/auth/adminRecords')
+      .then((res) => {
+        setAdmins(res.data.Result);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -76,10 +83,15 @@ function Home() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Admin</td>
-                <td>Admin</td>
-              </tr>
+              {admins.map((a) => (
+                <tr key={a.id}>
+                  <td>{a.email}</td>
+                  <td>
+                    <Link className="btn btn-info btn-sm me-2">Edit</Link>
+                    <button className="btn btn-warning btn-sm">Delete</button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
