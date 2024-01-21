@@ -1,7 +1,24 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function Employee() {
+  const [employee, setEmployee] = useState([]);
+  console.log(employee);
+  useEffect(() => {
+    axios
+      .get('http://localhost:3000/auth/employee')
+      .then((result) => {
+        if (result.data.Status) {
+          setEmployee(result.data.Result);
+        } else {
+          alert(result.data.Error);
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
   return (
     <>
       <div className="px-5 mt-3">
@@ -11,7 +28,40 @@ function Employee() {
         <Link to="/dashboard/add_employee" className="btn btn-success">
           Add Employee
         </Link>
-        <div className="mt-3"></div>
+        <div className="mt-3">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Salary</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {employee.map((e) => (
+                <tr key={e.id}>
+                  <td>{e.name}</td>
+                  <td>
+                    <img
+                      src={'../Server/public/images/' + e.image}
+                      alt="error"
+                    />
+                  </td>
+                  <td>{e.email}</td>
+                  <td>{e.address}</td>
+                  <td>{e.salary}</td>
+                  <td>
+                    <button>Edit</button>
+                    <button>Delete</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </>
   );
