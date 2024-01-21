@@ -161,4 +161,8 @@ router.get('/adminRecords', (req, res) => {
     return res.json({ Status: true, Result: result });
   });
 });
+router.get('/logout', (req, res) => {
+  res.clearCookie('toekn');
+  return res.json({ Status: true });
+});
 export { router as adminRouter };
