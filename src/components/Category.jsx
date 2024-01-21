@@ -9,7 +9,6 @@ function Category() {
     axios
       .get('http://localhost:3000/auth/category')
       .then((result) => {
-        console.log(result.data);
         if (result.data.Status) {
           setCategory(result.data.Result);
         } else {

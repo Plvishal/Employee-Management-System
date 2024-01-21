@@ -1,6 +1,7 @@
 import express from 'express';
 import con from '../config/db.js';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 const router = express.Router();
 router.post('/adminlogin', (req, res) => {
@@ -26,6 +27,7 @@ router.post('/adminlogin', (req, res) => {
 });
 router.post('/add-category', (req, res) => {
   const sql = 'INSERT INTO categories (`name`) VALUES (?)';
+
   con.query(sql, [req.body.category], (err, result) => {
     if (err) return res.json({ Status: false, Error: 'Query Error' });
     return res.json({ Status: true });
@@ -37,6 +39,29 @@ router.get('/category', (req, res) => {
   con.query(sql, (err, result) => {
     if (err) return res.json({ Status: false, Error: 'Query Error' });
     return res.json({ Status: true, Result: result });
+  });
+});
+
+router.post('/add_employee', (req, res) => {
+  const sql =
+    'INSERT INTO employee (`email`,`password`,`salary`,`address`,`name`,`image`,`categoryId`) VALUES (?)';
+  bcrypt.hash(req.body.password, 10, (err, hashPassword) => {
+    if (err) return res.json({ Status: false, Error: 'Query Error' });
+    const values = [
+      req.body.email,
+      hashPassword,
+      req.body.salary,
+      req.body.address,
+      req.body.name,
+      req.body.image,
+      req.body.categoryId,
+    ];
+    console.log(values);
+    console.log(sql);
+    con.query(sql, [values], (err, result) => {
+      if (err) return res.json({ Status: false, Error: 'Query Error' });
+      return res.json({ Status: true, Result: result });
+    });
   });
 });
 export { router as adminRouter };
