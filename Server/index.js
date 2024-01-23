@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { adminRouter } from './routes/AdminRoute.js';
+import { employeeRouter } from './routes/EmployeeRoute.js';
 
 const app = express();
 app.use(
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 app.use('/auth', adminRouter);
+app.use('/employee', employeeRouter);
 
 app.listen(3000, () => {
   console.log('Servere is running on port 3000');
