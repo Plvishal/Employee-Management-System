@@ -14,7 +14,6 @@ employeeRouter.post('/employeeLogin', (req, res) => {
     // console.log(result);
     if (result.length > 0) {
       bcrypt.compare(req.body.password, result[0].password, (err, response) => {
-        console.log(response);
         if (err)
           return res.json({ loginStatus: false, Error: 'Wrong Password' });
         if (response) {
@@ -24,9 +23,9 @@ employeeRouter.post('/employeeLogin', (req, res) => {
             'dsfffrdghtrfdgtrhghgfhgfhdgfewr455',
             { expiresIn: '1d' }
           );
-          console.log(token);
+
           res.cookie('token', token);
-          return res.json({ loginStatus: true,id:result[0].id });
+          return res.json({ loginStatus: true, id: result[0].id });
         }
       });
     } else {

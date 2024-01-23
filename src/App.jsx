@@ -12,15 +12,20 @@ import AddEmployee from './components/AddEmployee';
 import EditEmployee from './components/EditEmployee';
 import Start from './components/Start';
 import EmployeeLogin from './components/EmployeeLogin';
+import EmployeeDetails from './components/EmployeeDetails';
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/start" element={<Start />}></Route>
+          <Route path="/" element={<Start />}></Route>
           <Route path="/adminlogin" element={<Login />}></Route>
           <Route path="/employeeLogin" element={<EmployeeLogin />}></Route>
+          <Route
+            path="employee_details/:id"
+            element={<EmployeeDetails />}
+          ></Route>
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="" element={<Home />}></Route>
             <Route path="employee" element={<Employee />}></Route>
