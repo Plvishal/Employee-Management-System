@@ -1,6 +1,10 @@
 .loginPage {
-  background: url('https://img.sndimg.com/food/image/upload/f_auto,c_thumb,q_55,w_1280,ar_16:9/v1/img/recipes/39/71/5/2Mv4QgxCTqCxf5onEb7B_turkey-pot-pie-biscuits-0613.jpg');
-  background: linear-gradient(rgba(11, 11, 11, 0.5), rgba(10, 10, 10, 0.5));
+  background: url('../../public/images/imgc.jpg');
+  background: linear-gradient(
+    rgba(11, 11, 11, 0.5),
+    rgba(10, 10, 10, 0.5),
+    url('../../public/images/imgc.jpg')
+  );
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 120%;
