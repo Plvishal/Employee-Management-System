@@ -1,7 +1,26 @@
+import axios from 'axios';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Start() {
   const navigate = useNavigate();
+  useEffect(() => {
+    axios
+      .get('http://localhost:3000/verify')
+      .then((result) => {
+        console.log(result);
+        if (result.data.role === 'admin') {
+          navigate('/dashboard');
+        } else if (result.data.role === 'employee') {
+          navigate('/employee_details/' + result.data.id);
+        } else {
+          navigate('/');
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }, []);
   const handleEmployee = () => {
     navigate('/employeeLogin');
   };

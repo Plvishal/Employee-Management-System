@@ -19,7 +19,7 @@ employeeRouter.post('/employeeLogin', (req, res) => {
         if (response) {
           const email = result[0].email;
           const token = jwt.sign(
-            { role: 'employee', email: email },
+            { role: 'employee', email: email, id: result[0].id },
             'dsfffrdghtrfdgtrhghgfhgfhdgfewr455',
             { expiresIn: '1d' }
           );
@@ -43,7 +43,7 @@ employeeRouter.get('/details/:id', (req, res) => {
 });
 
 employeeRouter.get('/logout', (req, res) => {
-  res.clearCookie('toekn');
+  res.clearCookie('token');
   return res.json({ Status: true });
 });
 
