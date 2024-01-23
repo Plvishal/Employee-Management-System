@@ -33,5 +33,18 @@ employeeRouter.post('/employeeLogin', (req, res) => {
     }
   });
 });
+employeeRouter.get('/details/:id', (req, res) => {
+  const { id } = req.params;
+  const sql = ' select * from employee where id= ?';
+  con.query(sql, [id], (err, result) => {
+    if (err) return res.json({ Status: false });
+    return res.json(result);
+  });
+});
+
+employeeRouter.get('/logout', (req, res) => {
+  res.clearCookie('toekn');
+  return res.json({ Status: true });
+});
 
 export { employeeRouter };
